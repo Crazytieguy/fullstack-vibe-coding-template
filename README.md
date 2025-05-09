@@ -26,14 +26,27 @@ Follow these steps to get your development environment set up:
     pnpx degit crazytieguy/fullstack-vibe-coding-template
     ```
 
-4.  **Install Dependencies and run the app:**
+4.  **Initialize the project:**
 
     ```bash
-    pnpm install
+    pnpm run init
+    ```
+
+    This will:
+
+    - Install all dependencies
+    - Initialize Convex
+    - Set up a preconfigured Clerk JWT issuer domain for quick testing
+
+5.  **Run the app:**
+
+    ```bash
     pnpm dev
     ```
 
-5.  **Clerk Configuration (Critical):**
+6.  **Clerk Configuration:**
+
+    For using your own Clerk account instead of the preconfigured one:
 
     - Follow steps 1 to 3 in the [Clerk onboarding guide](https://docs.convex.dev/auth/clerk#get-started)
     - Paste the Issuer URL as `CLERK_JWT_ISSUER_DOMAIN` to your dev deployment environment variable settings on the Convex dashboard (see [docs](https://docs.convex.dev/auth/clerk#configuring-dev-and-prod-instances))
