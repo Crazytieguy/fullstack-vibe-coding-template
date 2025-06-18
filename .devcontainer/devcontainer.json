@@ -1,0 +1,13 @@
+{
+    "name": "Web with Claude",
+    "dockerFile": "Dockerfile",
+    "runArgs": [
+        "--userns=keep-id:uid=1000,gid=1000"
+    ], // Needed for podman
+    "updateRemoteUserUID": true,
+    "containerEnv": {
+        "HOME": "/home/node",
+        "DISPLAY": ":99"
+    },
+    "postStartCommand": "nohup bash -c 'sudo Xvfb :99 -screen 0 1280x1024x24 &'"
+}
