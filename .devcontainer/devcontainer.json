@@ -2,12 +2,12 @@
     "name": "Web with Claude",
     "dockerFile": "Dockerfile",
     "runArgs": [
-        "--userns=keep-id:uid=1000,gid=1000"
+        "--userns=keep-id:uid=1000,gid=1000",
+        "-v", "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     ], // Needed for podman
     "updateRemoteUserUID": true,
     "containerEnv": {
         "HOME": "/home/node",
-        "DISPLAY": ":99"
-    },
-    "postStartCommand": "nohup bash -c 'sudo Xvfb :99 -screen 0 1280x1024x24 &'"
+        "DISPLAY": "${localEnv:DISPLAY}"
+    }
 }
