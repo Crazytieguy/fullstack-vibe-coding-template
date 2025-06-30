@@ -1,0 +1,25 @@
+{
+  "image": "ubuntu:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "vscode",
+      "webPort": "6080",
+      "vncPort": "5901"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "yoavbls.pretty-ts-errors",
+        "aaron-bond.better-comments",
+        "usernamehw.errorlens",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  },
+  "postCreateCommand": "apt-get update && apt-get install -y tmux jq && npm install -g @anthropic-ai/claude-code && pnpm install && pnpx playwright install chrome"
+}
