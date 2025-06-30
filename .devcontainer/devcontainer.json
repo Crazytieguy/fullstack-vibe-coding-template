@@ -12,7 +12,7 @@
   "portsAttributes": {
     "6080": {
       "label": "Desktop (noVNC)",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "notify"
     },
     "5173": {
       "label": "Vite Dev Server",
@@ -32,5 +32,5 @@
       ]
     }
   },
-  "postCreateCommand": "apt-get update && apt-get install -y tmux jq && npm install -g @anthropic-ai/claude-code && pnpm install && pnpx playwright install chrome"
+  "postCreateCommand": "apt-get update && apt-get install -y tmux jq ripgrep && npm install -g @anthropic-ai/claude-code && pnpm install && pnpx playwright install chrome"
 }
