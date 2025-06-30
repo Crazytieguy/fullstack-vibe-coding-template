@@ -14,6 +14,7 @@ Setting up devcontainer configuration for the fullstack template with desktop-li
 
 ## Commits Made During Session
 - d13bd12: feat: add devcontainer configuration with desktop-lite feature
+- 25f13b3: refactor: use updateContentCommand instead of postCreateCommand
 
 ## Configuration Details
 - Base: Ubuntu latest with Node.js feature from devcontainers/features
