@@ -32,5 +32,5 @@
       ]
     }
   },
-  "postCreateCommand": "apt-get update && apt-get install -y tmux jq ripgrep && npm install -g @anthropic-ai/claude-code && pnpm install && pnpx playwright install chromium"
+  "postCreateCommand": "apt-get update && apt-get install -y tmux jq ripgrep && npm install -g @anthropic-ai/claude-code && pnpm install"
 }
