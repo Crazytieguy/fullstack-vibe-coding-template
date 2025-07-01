@@ -18,7 +18,7 @@ Help a user initialize their new application using this template. Track progress
 - Plan the MVP implementation
 - Remove demo content (user listing, placeholder text) but keep useful layout structure and auth unless explicitly requested otherwise
 - Implement the MVP
-- Test the implementation
+- Test the implementation (install Playwright browser: run `mcp__playwright__browser_install`)
 - Update notes and commit
 
 ## Notes
