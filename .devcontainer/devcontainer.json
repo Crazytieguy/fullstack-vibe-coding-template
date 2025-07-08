@@ -40,5 +40,5 @@
       ]
     }
   },
-  "postCreateCommand": "apt-get update && apt-get install -y tmux jq ripgrep && pnpm add -g @anthropic-ai/claude-code && pnpm install"
+  "postCreateCommand": "apt-get update && sudo apt-get install -y tmux jq ripgrep && pnpm add -g @anthropic-ai/claude-code && pnpm install"
 }
