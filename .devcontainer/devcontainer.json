@@ -19,6 +19,10 @@
       "onAutoForward": "notify"
     }
   },
+  "mounts": [
+    "source=pnpm-store,target=/home/node/.local/share/pnpm/store,type=volume",
+    "source=pnpm-cache,target=/home/node/.cache/pnpm,type=volume"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
