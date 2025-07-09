@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "init": "pnpm install && cp .env.example .env.local && convex dev --once --configure --dev-deployment cloud || true && convex env set CLERK_JWT_ISSUER_DOMAIN https://workable-dog-93.clerk.accounts.dev && claude '/init-app'",
+    "init": "pnpm install && cp .env.example .env.local && convex login && convex dev --once --configure --dev-deployment cloud || true && convex env set CLERK_JWT_ISSUER_DOMAIN https://workable-dog-93.clerk.accounts.dev && claude ${RUNNING_IN_CONTAINER:+--dangerously-skip-permissions} '/init-app'",
     "dev": "npm-run-all --parallel dev:frontend dev:backend",
     "dev:frontend": "vite --open",
     "dev:backend": "convex dev",
