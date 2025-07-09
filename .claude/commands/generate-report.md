@@ -4,7 +4,7 @@ Generate a markdown report from the current Claude Code session focusing on gene
 
 ## Approach
 
-Examine session context (git history, claude-notes.md, recent changes) to extract transferable lessons about effective Claude Code workflows and collaboration patterns.
+Examine session context (git history, recent changes) to extract transferable lessons about effective Claude Code workflows and collaboration patterns.
 
 ## Focus
 
