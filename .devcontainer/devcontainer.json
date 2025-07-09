@@ -24,8 +24,9 @@
     }
   },
   "mounts": [
-    "source=pnpm-store,target=/home/node/.local/share/pnpm/store,type=volume",
-    "source=pnpm-cache,target=/home/node/.cache/pnpm,type=volume"
+    "source=pnpm-store,target=/workspaces/.pnpm-store,type=volume",
+    "source=pnpm-metadata,target=/home/vscode/.local/share/pnpm/store,type=volume",
+    "source=pnpm-cache,target=/home/vscode/.cache/pnpm,type=volume"
   ],
   "customizations": {
     "vscode": {
