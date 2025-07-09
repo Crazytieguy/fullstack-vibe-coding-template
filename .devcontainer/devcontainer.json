@@ -41,5 +41,5 @@
       ]
     }
   },
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux jq ripgrep && npm install -g @anthropic-ai/claude-code && sudo chown -R vscode:vscode /workspaces/.pnpm-store && pnpm install"
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux jq ripgrep && npm install -g @anthropic-ai/claude-code && sudo chown -R vscode:vscode /workspaces/.pnpm-store && sudo chown -R vscode:vscode /home/vscode/.cache/pnpm && sudo chown -R vscode:vscode /home/vscode/.local/share/pnpm && pnpm install"
 }
