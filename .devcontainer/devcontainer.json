@@ -1,5 +1,9 @@
 {
-  "image": "ubuntu:latest",
+  "image": "mcr.microsoft.com/devcontainers/base:debian",
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "RUNNING_IN_CONTAINER": "true"
+  },
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/desktop-lite:1": {
@@ -32,5 +36,5 @@
       ]
     }
   },
-  "postCreateCommand": "apt-get update && apt-get install -y tmux jq ripgrep && npm install -g @anthropic-ai/claude-code && pnpm install"
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y tmux jq ripgrep && npm install -g @anthropic-ai/claude-code && pnpm install"
 }
