@@ -14,5 +14,6 @@
       "mcp__playwright__*"
     ],
     "deny": []
-  }
+  },
+  "enableAllProjectMcpServers": true
 }
