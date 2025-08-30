@@ -22,3 +22,8 @@ CLAUDE.local.md
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright test artifacts
+test-results/
+playwright-report/
+playwright/.cache/

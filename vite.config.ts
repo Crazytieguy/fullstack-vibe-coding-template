@@ -1,5 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
@@ -8,7 +8,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [
     // TanStack Router plugin must be passed before React plugin
-    TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
+    tanstackRouter({ target: "react", autoCodeSplitting: true }),
     react(),
     tailwindcss(),
   ],
