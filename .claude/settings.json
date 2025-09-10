@@ -22,7 +22,7 @@
   },
   "enabledMcpjsonServers": ["playwright"],
   "enableAllProjectMcpServers": true,
-    "hooks": {
+  "hooks": {
     "PostToolUse": [
       {
         "matcher": "TodoWrite",
