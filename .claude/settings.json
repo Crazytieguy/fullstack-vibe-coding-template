@@ -21,5 +21,18 @@
     "deny": []
   },
   "enabledMcpjsonServers": ["playwright"],
-  "enableAllProjectMcpServers": true
+  "enableAllProjectMcpServers": true,
+    "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "TodoWrite",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && if [ -n \"$(git status --porcelain 2>/dev/null)\" ]; then (echo '=== Automatic reminder (uncommitted work) ==='; git status --short; echo 'CLAUDE.md has guidance for git usage :D') >&2; exit 2; fi"
+          }
+        ]
+      }
+    ]
+  }
 }
