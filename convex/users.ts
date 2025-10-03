@@ -8,14 +8,12 @@ export const ensureUser = mutation({
       throw new Error("Not authenticated");
     }
 
-    // Check if user already exists
     const existingUser = await ctx.db
       .query("users")
       .withIndex("by_clerkId", (q) => q.eq("clerkId", identity.subject))
       .unique();
 
     if (existingUser) {
-      // Update name if it has changed in Clerk
       const clerkName = identity.name ?? "Anonymous";
       if (existingUser.name !== clerkName) {
         await ctx.db.patch(existingUser._id, { name: clerkName });
@@ -24,7 +22,6 @@ export const ensureUser = mutation({
       return existingUser;
     }
 
-    // Create new user
     const userId = await ctx.db.insert("users", {
       clerkId: identity.subject,
       name: identity.name ?? "Anonymous",

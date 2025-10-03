@@ -22,13 +22,15 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 ## Testing & Validation
 
-- Always follow these steps before squashing or pushing
-- Check background process output for Convex backend errors. Run `pnpm lint` for comprehensive type checking and linting across the codebase
-- Test UI with Playwright MCP: full browser automation with element interaction and console access
+- Before squashing/pushing: Check background process output for Convex backend errors. Run `pnpm lint` and `pnpm test:e2e` (dev server must be running)
+- Manual testing: Test UI with Playwright MCP (`mcp__playwright__browser_*`) before writing e2e tests
   - The playwright mcp server is unreliable, if it doesn't work ask the user to test manually
+- Test account: `claude+clerk_test@example.com`, code `424242`. Use slowly: true / pressSequentially to trigger auto distribution
 - Responsive testing: Use `mcp__playwright__browser_resize` to test mobile (375x667), tablet (768x1024), desktop (1200x800)
-- Clerk verification: sign in with `claude+clerk_test@example.com` and 424242 as the verification code. Type all 6 digits at once in first field with slowly: true - UI auto-distributes to separate inputs
-- Debug with `mcp__playwright__browser_console_messages` to view all browser console output
+- Debug with `mcp__playwright__browser_console_messages` to view browser console output
+- Add e2e tests only when explicitly requested by user - not proactively
+- Convex in tests: Use `ConvexTestingHelper` for queries/mutations
+- Test cleanup: Use `testingMutation` from `convex/testingFunctions.ts` for cleanup functions - prevents accidental production use
 - If you run into an issue you don't know how to fix, look for relevant documentation or a reference implementation
 
 ## Convex
