@@ -14,7 +14,7 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 ## Git Workflow
 
-- Commit at logical checkpoints (feature complete, major milestone, before risky changes) - use rewind feature for quick undo instead of frequent commits
+- Commit at logical checkpoints (feature complete, major milestone, before risky changes)
 - If user requests rollback: use `git log` or `git reflog` to find commit, then `git reset --hard [commit-hash]`
 - Before pushing: run `pnpm lint`, review with `git diff origin/main`, commit with `"feat: [complete feature description]"`
 
