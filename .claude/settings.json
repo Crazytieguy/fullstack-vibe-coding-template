@@ -23,19 +23,6 @@
     ],
     "deny": []
   },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if [[ \"$INPUT_BASH_COMMAND\" == git\\ commit* ]]; then pnpm lint; fi"
-          }
-        ]
-      }
-    ]
-  },
   "enabledMcpjsonServers": ["playwright"],
   "enableAllProjectMcpServers": true
 }

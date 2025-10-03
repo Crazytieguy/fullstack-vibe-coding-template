@@ -14,15 +14,13 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 ## Git Workflow
 
-- **Commit when meaningful**: Create commits at logical checkpoints (feature complete, major milestone, before risky changes), not after every user request
-- Use Claude Code's rewind feature for quick undo - no need for checkpoint commits
-- If user requests rollback to specific state, use `git log` or `git reflog` to find commit, then `git reset --hard [commit-hash]`
-- Before pushing: run `pnpm lint` (or rely on PreToolUse hook), review changes with `git diff origin/main`, then commit with descriptive message: `"feat: [complete feature description]"`
-- Commits should be meaningful units of work, not frequent checkpoints
+- Commit at logical checkpoints (feature complete, major milestone, before risky changes) - use rewind feature for quick undo instead of frequent commits
+- If user requests rollback: use `git log` or `git reflog` to find commit, then `git reset --hard [commit-hash]`
+- Before pushing: run `pnpm lint`, review with `git diff origin/main`, commit with `"feat: [complete feature description]"`
 
 ## Testing & Validation
 
-- Before squashing/pushing: Check background process output for Convex backend errors. Run `pnpm lint` and `pnpm test:e2e`
+- Before pushing: Check background process output for Convex backend errors. Run `pnpm lint` and `pnpm test:e2e`
 - Manual testing: Test UI with Playwright MCP (`mcp__playwright__browser_*`) before writing e2e tests
   - The playwright mcp server is unreliable, if it doesn't work ask the user to test manually
 - Test account: `claude+clerk_test@example.com`, code `424242`. Use slowly: true / pressSequentially to trigger auto distribution
