@@ -1,7 +1,6 @@
 ---
 description: Customize application theme using daisyUI
 argument-hint: None required
-allowed-tools: [Read, Edit, WebFetch]
 ---
 
 # Customize Theme

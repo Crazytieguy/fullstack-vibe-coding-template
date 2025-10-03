@@ -1,7 +1,6 @@
 ---
 description: Generate session report with collaboration insights
 argument-hint: None required
-allowed-tools: [Bash, Read, Write]
 ---
 
 # Generate Session Report
