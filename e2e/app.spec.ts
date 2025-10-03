@@ -11,6 +11,7 @@ dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 test.describe("Full Stack", () => {
   let convex: ConvexTestingHelper;
   const testEmail = "e2e+clerk_test@example.com";
+  const testUserName = "E2E";
 
   test.beforeAll(async () => {
     convex = new ConvexTestingHelper({
@@ -19,12 +20,7 @@ test.describe("Full Stack", () => {
   });
 
   test.afterAll(async () => {
-    const users = await convex.query(api.users.listUsers, {});
-    const testUser = users.find(u => u.name === "E2E");
-    if (testUser) {
-      await convex.mutation(api.testingFunctions.deleteTestUser, { userId: testUser._id });
-    }
-
+    await convex.mutation(api.testingFunctions.deleteTestUser, { name: testUserName });
     await convex.close();
   });
 

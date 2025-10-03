@@ -13,8 +13,12 @@ const testingMutation = customMutation(mutation, {
 });
 
 export const deleteTestUser = testingMutation({
-  args: { userId: v.id("users") },
-  handler: async (ctx, { userId }) => {
-    await ctx.db.delete(userId);
+  args: { name: v.string() },
+  handler: async (ctx, { name }) => {
+    const users = await ctx.db.query("users").collect();
+    const user = users.find(u => u.name === name);
+    if (user) {
+      await ctx.db.delete(user._id);
+    }
   },
 });
