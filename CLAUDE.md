@@ -4,6 +4,7 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 - Full-stack TypeScript app: React + Vite + TanStack Router (frontend), Convex (backend), Clerk (auth)
 - Development: Run `pnpm dev` with the `run_in_background` parameter to start both frontend and backend servers. Monitor output using the BashOutput tool
+- If `pnpm dev` fails due to requiring interactive input, ask the user to run `pnpm convex dev --once` first in a separate terminal
 - Import alias: `@/` maps to `src/` directory
 - Tailwind CSS 4, daisyUI 5: All config in `src/index.css` via CSS syntax, NOT tailwind.config.js
 - Typography: Uses `@tailwindcss/typography` with `prose prose-invert` at root level, use `not-prose` to escape (e.g., for buttons/tables)
@@ -48,8 +49,10 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 - Transactions are per-mutation - can't span multiple mutations. Calling multiple queries/mutation in a single action may introduce race conditions.
 - Hot reload issues: Restart if schema changes don't apply or types are stuck
 - Use `import { Doc, Id } from "./_generated/dataModel";` and `v.id("table")` for type safety.
-- Add `"use node";` to the top of files containing actions that use Node.js built-in modules (not needed for fetch, can't contain queries and mutations).
+- Add `"use node";` to the top of files containing actions that use Node.js built-in modules (can't contain queries and mutations)
+- `"use node";` is NOT needed for fetch, only use it for other Node.js built-ins
 - Convex + Clerk: Always use Convex's auth hooks (`useConvexAuth`) and components (`<Authenticated>`, `<Unauthenticated>`, `<AuthLoading>`) instead of Clerk's hooks/components. This ensures auth tokens are properly validated by the Convex backend.
+- Import data with `pnpm convex import --table tableName file.json`
 
 ### Function guidelines
 
