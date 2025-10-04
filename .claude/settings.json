@@ -1,4 +1,8 @@
 {
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1"
+  },
   "permissions": {
     "allow": [
       "WebFetch(domain:daisyui.com)",
