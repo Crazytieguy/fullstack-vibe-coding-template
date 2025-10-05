@@ -14,13 +14,23 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 ## Git Workflow
 
-- Commit at logical checkpoints (feature complete, major milestone, before risky changes)
-- If user requests rollback: use `git log` or `git reflog` to find commit, then `git reset --hard [commit-hash]`
-- Before pushing: run `pnpm lint`, review with `git diff origin/main`, commit with `"feat: [complete feature description]"`
+- Commit small pieces of work when possible
+- If the user wants to roll back, use git to find the relevant commit to reset to
+
+### Example good commit messages
+
+- `pnpm install @convex-dev/aggregate`
+- `rename: is_malicious -> maliciousness_score` (this commit might be part of a bigger refactor)
+- `users: add getCurrentUserOrNull, getCurrentUserOrCrash`
+- `schema: users: add bio`
+- `frontend: calendar: add month view`
 
 ## Testing & Validation
 
-- Before pushing: Check background process output for Convex backend errors. Run `pnpm lint` and `pnpm test:e2e`
+- Before pushing:
+  - Check background process output for Convex backend errors.
+  - Run `pnpm lint` and `pnpm test:e2e`
+  - Review with `git diff origin/main` (or whatever branch makes sense)
 - Manual testing: Test UI with Playwright MCP (`mcp__playwright__browser_*`) before writing e2e tests
   - The playwright mcp server is unreliable, if it doesn't work ask the user to test manually
 - Test account: `claude+clerk_test@example.com`, code `424242`. Use slowly: true / pressSequentially to trigger auto distribution
@@ -125,14 +135,16 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
   const schema = z.object({ name: z.string().min(1) });
   const form = useForm({
     defaultValues: { name: "" },
-    validators: { onChange: schema }
+    validators: { onChange: schema },
   });
   ```
 - Field errors are StandardSchemaV1Issue[] with .message property:
   ```tsx
-  {!field.state.meta.isValid && (
-    <em>{field.state.meta.errors.map(e => e.message).join(", ")}</em>
-  )}
+  {
+    !field.state.meta.isValid && (
+      <em>{field.state.meta.errors.map((e) => e.message).join(", ")}</em>
+    );
+  }
   ```
 - Number inputs use valueAsNumber:
   ```tsx
