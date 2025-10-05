@@ -10,6 +10,7 @@
       "Bash(grep:*)",
       "Bash(rg:*)",
       "Bash(mkdir:*)",
+      "Bash(pnpm install:*)",
       "Bash(pnpm run:*)",
       "Bash(pnpm lint)",
       "Bash(pnpm dev)",
