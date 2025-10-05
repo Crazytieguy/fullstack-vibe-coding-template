@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "init": "pnpm install && pnpm exec playwright install chromium && cp .env.example .env.local && convex login && convex dev --once || true && claude ${RUNNING_IN_CONTAINER:+--dangerously-skip-permissions} '/init-app'",
+    "setup": "pnpm install && pnpm exec playwright install chromium && cp .env.example .env.local && ./scripts/setup-convex.sh",
     "dev": "npm-run-all --parallel dev:frontend dev:backend",
     "dev:frontend": "vite --open",
     "dev:backend": "convex dev",
