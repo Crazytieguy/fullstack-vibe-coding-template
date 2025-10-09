@@ -3,31 +3,47 @@
 set timeout 3
 log_user 1
 
-proc timed_expect {pattern response description} {
-    set start_time [clock seconds]
-    expect {
-        $pattern {
-            set elapsed [expr {[clock seconds] - $start_time}]
-            puts "\n\[Matched '$description' after ${elapsed}s\]"
-            send $response
-        }
-        timeout {
-            set elapsed [expr {[clock seconds] - $start_time}]
-            puts "\n\[Timeout on '$description' after ${elapsed}s\]"
-            exit 1
-        }
-    }
-}
-
 # Start the convex dev command
 puts "\[Starting convex dev...\]"
 spawn pnpm run dev:backend
 
-# Wait for the welcome prompt - "Start without an account" is pre-selected
-timed_expect "Would you like to login to your account?" "\r" "login prompt"
+set start_time [clock seconds]
 
-# Wait for project selection - "Create a new one" is pre-selected
-timed_expect "Which project would you like to use?" "\r" "project selection"
+# Handle first prompt - could be either:
+# 1. "Would you like to login to your account?" (fresh setup)
+# 2. "Choose a name:" (existing config with missing project)
+expect {
+    "Would you like to login to your account?" {
+        set elapsed [expr {[clock seconds] - $start_time}]
+        puts "\n\[Matched 'login prompt' after ${elapsed}s\]"
+        send "\r"
+
+        # Now expect project selection
+        set start_time [clock seconds]
+        expect {
+            "Which project would you like to use?" {
+                set elapsed [expr {[clock seconds] - $start_time}]
+                puts "\n\[Matched 'project selection' after ${elapsed}s\]"
+                send "\r"
+            }
+            timeout {
+                set elapsed [expr {[clock seconds] - $start_time}]
+                puts "\n\[Timeout on 'project selection' after ${elapsed}s\]"
+                exit 1
+            }
+        }
+    }
+    "Choose a name:" {
+        set elapsed [expr {[clock seconds] - $start_time}]
+        puts "\n\[Matched 'name prompt' after ${elapsed}s\]"
+        send "\r"
+    }
+    timeout {
+        set elapsed [expr {[clock seconds] - $start_time}]
+        puts "\n\[Timeout on 'initial prompt' after ${elapsed}s\]"
+        exit 1
+    }
+}
 
 # Keep the process running and show output
 puts "\n\[Setup complete, running dev server...\]"
