@@ -1,0 +1,34 @@
+#!/usr/bin/expect -f
+
+set timeout 3
+log_user 1
+
+proc timed_expect {pattern response description} {
+    set start_time [clock seconds]
+    expect {
+        $pattern {
+            set elapsed [expr {[clock seconds] - $start_time}]
+            puts "\n\[Matched '$description' after ${elapsed}s\]"
+            send $response
+        }
+        timeout {
+            set elapsed [expr {[clock seconds] - $start_time}]
+            puts "\n\[Timeout on '$description' after ${elapsed}s\]"
+            exit 1
+        }
+    }
+}
+
+# Start the convex dev command
+puts "\[Starting convex dev...\]"
+spawn pnpm run dev:backend
+
+# Wait for the welcome prompt - "Start without an account" is pre-selected
+timed_expect "Would you like to login to your account?" "\r" "login prompt"
+
+# Wait for project selection - "Create a new one" is pre-selected
+timed_expect "Which project would you like to use?" "\r" "project selection"
+
+# Keep the process running and show output
+puts "\n\[Setup complete, running dev server...\]"
+interact

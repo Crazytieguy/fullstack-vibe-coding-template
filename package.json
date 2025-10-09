@@ -8,6 +8,7 @@
     "dev": "npm-run-all --parallel dev:frontend dev:backend",
     "dev:frontend": "vite --open",
     "dev:backend": "convex dev",
+    "dev:backend:noninteractive": "./start-local-convex.exp",
     "build": "tsc -b && vite build",
     "lint": "tsc -b && eslint .  --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write .",
