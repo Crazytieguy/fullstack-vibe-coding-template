@@ -4,11 +4,6 @@ import { spawn } from 'child_process';
 
 console.log('[Starting convex dev...]');
 
-const child = spawn('pnpm', ['run', 'dev:backend'], {
-  stdio: ['pipe', 'inherit', 'inherit'],
-  shell: true
-});
-
 // List of prompts to auto-answer with Enter
 const prompts = [
   'Would you like to login to your account?',
@@ -18,15 +13,14 @@ const prompts = [
 
 let buffer = '';
 
-// Monitor stdout for prompts (we need to capture it)
-// Since we set stdout to 'inherit', we need a different approach
-// Let's use 'pipe' for stdout and manually forward it
-child.stdio[1] = 'pipe';
-child.stdio[2] = 'pipe';
-
-const childProcess = spawn('pnpm', ['run', 'dev:backend'], {
+// Use 'script' command to create a pseudo-TTY so convex CLI thinks it's interactive
+const childProcess = spawn('script', [
+  '-q',  // quiet mode
+  '-c', 'pnpm run dev:backend',
+  '/dev/null'
+], {
   stdio: ['pipe', 'pipe', 'pipe'],
-  shell: true
+  shell: false
 });
 
 let setupTimeout = null;
