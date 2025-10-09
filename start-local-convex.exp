@@ -3,48 +3,36 @@
 set timeout 3
 log_user 1
 
-# Start the convex dev command
 puts "\[Starting convex dev...\]"
 spawn pnpm run dev:backend
 
-set start_time [clock seconds]
-
-# Handle first prompt - could be either:
-# 1. "Would you like to login to your account?" (fresh setup)
-# 2. "Choose a name:" (existing config with missing project)
-expect {
-    "Would you like to login to your account?" {
-        set elapsed [expr {[clock seconds] - $start_time}]
-        puts "\n\[Matched 'login prompt' after ${elapsed}s\]"
-        send "\r"
-
-        # Now expect project selection
-        set start_time [clock seconds]
-        expect {
-            "Which project would you like to use?" {
-                set elapsed [expr {[clock seconds] - $start_time}]
-                puts "\n\[Matched 'project selection' after ${elapsed}s\]"
-                send "\r"
-            }
-            timeout {
-                set elapsed [expr {[clock seconds] - $start_time}]
-                puts "\n\[Timeout on 'project selection' after ${elapsed}s\]"
-                exit 1
-            }
+# Keep handling prompts until we timeout (meaning setup is complete)
+while {1} {
+    set start_time [clock seconds]
+    expect {
+        "Would you like to login to your account?" {
+            set elapsed [expr {[clock seconds] - $start_time}]
+            puts "\n\[Matched 'login prompt' after ${elapsed}s\]"
+            send "\r"
+            exp_continue
         }
-    }
-    "Choose a name:" {
-        set elapsed [expr {[clock seconds] - $start_time}]
-        puts "\n\[Matched 'name prompt' after ${elapsed}s\]"
-        send "\r"
-    }
-    timeout {
-        set elapsed [expr {[clock seconds] - $start_time}]
-        puts "\n\[Timeout on 'initial prompt' after ${elapsed}s\]"
-        exit 1
+        "Which project would you like to use?" {
+            set elapsed [expr {[clock seconds] - $start_time}]
+            puts "\n\[Matched 'project selection' after ${elapsed}s\]"
+            send "\r"
+            exp_continue
+        }
+        "Choose a name:" {
+            set elapsed [expr {[clock seconds] - $start_time}]
+            puts "\n\[Matched 'name prompt' after ${elapsed}s\]"
+            send "\r"
+            exp_continue
+        }
+        timeout {
+            break
+        }
     }
 }
 
-# Keep the process running and show output
 puts "\n\[Setup complete, running dev server...\]"
 interact
