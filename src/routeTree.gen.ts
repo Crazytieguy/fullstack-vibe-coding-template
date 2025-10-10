@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConferencesNewRouteImport } from './routes/conferences/new'
+import { Route as ConferencesConferenceIdRouteImport } from './routes/conferences/$conferenceId'
+import { Route as ConferencesConferenceIdMeetingsNewRouteImport } from './routes/conferences/$conferenceId/meetings/new'
+import { Route as ConferencesConferenceIdMeetingsMeetingIdRouteImport } from './routes/conferences/$conferenceId/meetings/$meetingId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConferencesNewRoute = ConferencesNewRouteImport.update({
+  id: '/conferences/new',
+  path: '/conferences/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConferencesConferenceIdRoute = ConferencesConferenceIdRouteImport.update({
+  id: '/conferences/$conferenceId',
+  path: '/conferences/$conferenceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConferencesConferenceIdMeetingsNewRoute =
+  ConferencesConferenceIdMeetingsNewRouteImport.update({
+    id: '/meetings/new',
+    path: '/meetings/new',
+    getParentRoute: () => ConferencesConferenceIdRoute,
+  } as any)
+const ConferencesConferenceIdMeetingsMeetingIdRoute =
+  ConferencesConferenceIdMeetingsMeetingIdRouteImport.update({
+    id: '/meetings/$meetingId',
+    path: '/meetings/$meetingId',
+    getParentRoute: () => ConferencesConferenceIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/conferences/$conferenceId': typeof ConferencesConferenceIdRouteWithChildren
+  '/conferences/new': typeof ConferencesNewRoute
+  '/conferences/$conferenceId/meetings/$meetingId': typeof ConferencesConferenceIdMeetingsMeetingIdRoute
+  '/conferences/$conferenceId/meetings/new': typeof ConferencesConferenceIdMeetingsNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/conferences/$conferenceId': typeof ConferencesConferenceIdRouteWithChildren
+  '/conferences/new': typeof ConferencesNewRoute
+  '/conferences/$conferenceId/meetings/$meetingId': typeof ConferencesConferenceIdMeetingsMeetingIdRoute
+  '/conferences/$conferenceId/meetings/new': typeof ConferencesConferenceIdMeetingsNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/conferences/$conferenceId': typeof ConferencesConferenceIdRouteWithChildren
+  '/conferences/new': typeof ConferencesNewRoute
+  '/conferences/$conferenceId/meetings/$meetingId': typeof ConferencesConferenceIdMeetingsMeetingIdRoute
+  '/conferences/$conferenceId/meetings/new': typeof ConferencesConferenceIdMeetingsNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/conferences/$conferenceId'
+    | '/conferences/new'
+    | '/conferences/$conferenceId/meetings/$meetingId'
+    | '/conferences/$conferenceId/meetings/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/conferences/$conferenceId'
+    | '/conferences/new'
+    | '/conferences/$conferenceId/meetings/$meetingId'
+    | '/conferences/$conferenceId/meetings/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/conferences/$conferenceId'
+    | '/conferences/new'
+    | '/conferences/$conferenceId/meetings/$meetingId'
+    | '/conferences/$conferenceId/meetings/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConferencesConferenceIdRoute: typeof ConferencesConferenceIdRouteWithChildren
+  ConferencesNewRoute: typeof ConferencesNewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conferences/new': {
+      id: '/conferences/new'
+      path: '/conferences/new'
+      fullPath: '/conferences/new'
+      preLoaderRoute: typeof ConferencesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conferences/$conferenceId': {
+      id: '/conferences/$conferenceId'
+      path: '/conferences/$conferenceId'
+      fullPath: '/conferences/$conferenceId'
+      preLoaderRoute: typeof ConferencesConferenceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conferences/$conferenceId/meetings/new': {
+      id: '/conferences/$conferenceId/meetings/new'
+      path: '/meetings/new'
+      fullPath: '/conferences/$conferenceId/meetings/new'
+      preLoaderRoute: typeof ConferencesConferenceIdMeetingsNewRouteImport
+      parentRoute: typeof ConferencesConferenceIdRoute
+    }
+    '/conferences/$conferenceId/meetings/$meetingId': {
+      id: '/conferences/$conferenceId/meetings/$meetingId'
+      path: '/meetings/$meetingId'
+      fullPath: '/conferences/$conferenceId/meetings/$meetingId'
+      preLoaderRoute: typeof ConferencesConferenceIdMeetingsMeetingIdRouteImport
+      parentRoute: typeof ConferencesConferenceIdRoute
+    }
   }
 }
 
+interface ConferencesConferenceIdRouteChildren {
+  ConferencesConferenceIdMeetingsMeetingIdRoute: typeof ConferencesConferenceIdMeetingsMeetingIdRoute
+  ConferencesConferenceIdMeetingsNewRoute: typeof ConferencesConferenceIdMeetingsNewRoute
+}
+
+const ConferencesConferenceIdRouteChildren: ConferencesConferenceIdRouteChildren =
+  {
+    ConferencesConferenceIdMeetingsMeetingIdRoute:
+      ConferencesConferenceIdMeetingsMeetingIdRoute,
+    ConferencesConferenceIdMeetingsNewRoute:
+      ConferencesConferenceIdMeetingsNewRoute,
+  }
+
+const ConferencesConferenceIdRouteWithChildren =
+  ConferencesConferenceIdRoute._addFileChildren(
+    ConferencesConferenceIdRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConferencesConferenceIdRoute: ConferencesConferenceIdRouteWithChildren,
+  ConferencesNewRoute: ConferencesNewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
