@@ -16,8 +16,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm dev",
+    command: "pnpm dev:e2e",
     url: "http://localhost:5173",
     reuseExistingServer: true,
+    timeout: 120000, // 2 minutes for Convex backend to start, deploy, and frontend to start
   },
 });
