@@ -44,7 +44,7 @@ function MeetingDetail() {
     <div className="not-prose max-w-4xl mx-auto">
       <button
         onClick={() =>
-          navigate({
+          void navigate({
             to: "/conferences/$conferenceId",
             params: { conferenceId },
           })

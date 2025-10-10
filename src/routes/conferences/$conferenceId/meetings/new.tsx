@@ -17,7 +17,7 @@ export const Route = createFileRoute(
 
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
-  description: z.string().optional(),
+  description: z.string(),
   startDate: z.string().min(1, "Start date is required"),
   startTime: z.string().min(1, "Start time is required"),
   duration: z.number().min(15, "Duration must be at least 15 minutes"),
@@ -67,7 +67,7 @@ function NewMeeting() {
     <div className="not-prose max-w-2xl mx-auto">
       <button
         onClick={() =>
-          navigate({
+          void navigate({
             to: "/conferences/$conferenceId",
             params: { conferenceId },
           })
@@ -104,7 +104,7 @@ function NewMeeting() {
                 {!field.state.meta.isValid && (
                   <label className="label">
                     <span className="label-text-alt text-error">
-                      {field.state.meta.errors.map((e) => e.message).join(", ")}
+                      {field.state.meta.errors.map((e) => e?.message).join(", ")}
                     </span>
                   </label>
                 )}
@@ -146,7 +146,7 @@ function NewMeeting() {
                     <label className="label">
                       <span className="label-text-alt text-error">
                         {field.state.meta.errors
-                          .map((e) => e.message)
+                          .map((e) => e?.message)
                           .join(", ")}
                       </span>
                     </label>
@@ -171,7 +171,7 @@ function NewMeeting() {
                     <label className="label">
                       <span className="label-text-alt text-error">
                         {field.state.meta.errors
-                          .map((e) => e.message)
+                          .map((e) => e?.message)
                           .join(", ")}
                       </span>
                     </label>
@@ -198,7 +198,7 @@ function NewMeeting() {
                 {!field.state.meta.isValid && (
                   <label className="label">
                     <span className="label-text-alt text-error">
-                      {field.state.meta.errors.map((e) => e.message).join(", ")}
+                      {field.state.meta.errors.map((e) => e?.message).join(", ")}
                     </span>
                   </label>
                 )}
@@ -233,7 +233,7 @@ function NewMeeting() {
             <button
               type="button"
               onClick={() =>
-                navigate({
+                void navigate({
                   to: "/conferences/$conferenceId",
                   params: { conferenceId },
                 })

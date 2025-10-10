@@ -11,7 +11,7 @@ export const Route = createFileRoute("/conferences/new")({
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
-  description: z.string().optional(),
+  description: z.string(),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().min(1, "End date is required"),
 });
@@ -48,7 +48,7 @@ function NewConference() {
   return (
     <div className="not-prose max-w-2xl mx-auto">
       <button
-        onClick={() => navigate({ to: "/" })}
+        onClick={() => void navigate({ to: "/" })}
         className="btn btn-ghost btn-sm mb-4"
       >
         <ArrowLeft className="w-4 h-4" />
@@ -81,7 +81,7 @@ function NewConference() {
                 {!field.state.meta.isValid && (
                   <label className="label">
                     <span className="label-text-alt text-error">
-                      {field.state.meta.errors.map((e) => e.message).join(", ")}
+                      {field.state.meta.errors.map((e) => e?.message).join(", ")}
                     </span>
                   </label>
                 )}
@@ -123,7 +123,7 @@ function NewConference() {
                     <label className="label">
                       <span className="label-text-alt text-error">
                         {field.state.meta.errors
-                          .map((e) => e.message)
+                          .map((e) => e?.message)
                           .join(", ")}
                       </span>
                     </label>
@@ -148,7 +148,7 @@ function NewConference() {
                     <label className="label">
                       <span className="label-text-alt text-error">
                         {field.state.meta.errors
-                          .map((e) => e.message)
+                          .map((e) => e?.message)
                           .join(", ")}
                       </span>
                     </label>
@@ -161,7 +161,7 @@ function NewConference() {
           <div className="card-actions justify-end mt-4">
             <button
               type="button"
-              onClick={() => navigate({ to: "/" })}
+              onClick={() => void navigate({ to: "/" })}
               className="btn btn-ghost"
             >
               Cancel

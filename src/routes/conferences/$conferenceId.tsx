@@ -88,7 +88,7 @@ function ConferenceDetail() {
   return (
     <div className="not-prose">
       <button
-        onClick={() => navigate({ to: "/" })}
+        onClick={() => void navigate({ to: "/" })}
         className="btn btn-ghost btn-sm mb-4"
       >
         <ArrowLeft className="w-4 h-4" />
