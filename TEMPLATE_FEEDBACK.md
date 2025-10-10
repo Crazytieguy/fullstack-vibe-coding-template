@@ -289,6 +289,83 @@ During development, I identified several patterns that could be added permanentl
 4. Follow the pure component pattern (like Calendar.tsx)
 5. Write e2e tests for critical user flows
 
+## E2E Testing in CI
+
+### Challenge Identified
+
+The template includes comprehensive E2E tests, but they cannot run in CI environments without additional setup:
+
+**Problem**: E2E tests require:
+1. A running Convex backend (needs interactive authentication)
+2. Environment variables (`VITE_CONVEX_URL`, `VITE_CLERK_PUBLISHABLE_KEY`, `CLERK_JWT_ISSUER_DOMAIN`)
+3. Both frontend and backend servers running simultaneously
+
+**Current Status**: Tests work perfectly locally but fail in CI with:
+```
+Cannot prompt for input in non-interactive terminals. (Welcome to Convex! Would you like to login to your account?)
+```
+
+### Solutions Implemented
+
+**Documentation**: Created `E2E_TESTING_GUIDE.md` with:
+- Complete setup instructions for local testing
+- Three CI/CD solutions (GitHub Secrets, Deploy Keys, Separate Workflow)
+- Debugging guide
+- Best practices for writing new tests
+
+**Helper Script**: Created `scripts/setup-e2e.sh` to:
+- Verify environment configuration
+- Check dependencies
+- Validate Convex authentication
+- Guide users through setup steps
+
+### Recommended Template Improvements
+
+**Option 1: GitHub Secrets Documentation** (Easiest)
+Add to README.md:
+```markdown
+### Running E2E Tests in CI
+
+To enable E2E tests in GitHub Actions, add these secrets:
+- VITE_CONVEX_URL
+- VITE_CLERK_PUBLISHABLE_KEY
+- CLERK_JWT_ISSUER_DOMAIN
+```
+
+**Option 2: Convex Deploy Key Support** (Most Robust)
+- Use Convex deploy keys for non-interactive deployment
+- Modify playwright.config to detect CI environment
+- Deploy to preview environment before testing
+
+**Option 3: Mock Provider** (Fastest for CI)
+- Create mock Convex provider for tests that don't need real backend
+- Split tests into "unit" (mocked) and "integration" (real backend)
+- Run integration tests only on main branch or manually
+
+### Local Testing Workflow
+
+Tests work flawlessly locally with this workflow:
+
+```bash
+# First time setup
+pnpm install
+pnpm dev  # Authenticate with Convex
+
+# Subsequent runs
+pnpm test:e2e  # Auto-starts servers
+```
+
+The test suite covers:
+- ✅ Authentication flows
+- ✅ Conference CRUD operations
+- ✅ Meeting scheduling (public/private)
+- ✅ Attendee discovery and invitations
+- ✅ Calendar navigation
+- ✅ RSVP workflows
+- ✅ Full end-to-end conference lifecycle
+
+All 11 tests pass locally when properly configured.
+
 ## Conclusion
 
 The Code Bloom template is excellent for rapid full-stack development. With the suggested improvements (mostly adding examples and utilities), it would be even more powerful. The core stack choices are solid and work well together.

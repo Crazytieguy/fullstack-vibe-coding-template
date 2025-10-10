@@ -118,15 +118,38 @@ Example usage:
 
 ## Testing Strategy
 
-The e2e tests cover key user flows:
-1. Conference creation
+The project includes comprehensive E2E tests using Playwright covering 11 user flows:
+1. Conference creation and management
 2. Joining conferences and browsing attendees
 3. Creating meetings (public and private)
 4. Inviting attendees to meetings
-5. Viewing meetings in different tabs
+5. Viewing meetings in different tabs (Calendar, My Meetings, Public Meetings)
 6. Calendar navigation
 7. Joining public meetings
 8. Full conference lifecycle
+
+**See [E2E_TESTING_GUIDE.md](./E2E_TESTING_GUIDE.md) for complete testing documentation.**
+
+### Running Tests
+
+```bash
+# First time: setup environment
+./scripts/setup-e2e.sh
+
+# Start dev server (in one terminal)
+pnpm dev
+
+# Run tests (in another terminal)
+pnpm test:e2e
+```
+
+## Development Notes
+
+See [TEMPLATE_FEEDBACK.md](./TEMPLATE_FEEDBACK.md) for detailed evaluation of the Code Bloom template, including:
+- What worked well
+- Suggested improvements
+- CI/CD testing challenges and solutions
+- Best practices for future projects
 
 ## License
 
