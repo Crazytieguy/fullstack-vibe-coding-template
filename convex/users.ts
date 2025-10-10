@@ -1,5 +1,5 @@
 import { mutation, query, QueryCtx, MutationCtx } from "./_generated/server";
-import { ConvexError } from "convex/values";
+import { ConvexError, v } from "convex/values";
 
 export async function getCurrentUserOrNull(ctx: QueryCtx | MutationCtx) {
   const identity = await ctx.auth.getUserIdentity();
@@ -27,6 +27,8 @@ export async function getCurrentUserOrCrash(ctx: QueryCtx | MutationCtx) {
   if (!user) {
     throw new ConvexError("Not authenticated");
   }
+
+  return user;
 }
 
 export const ensureUser = mutation({
@@ -65,5 +67,20 @@ export const listUsers = query({
   handler: async (ctx) => {
     const users = await ctx.db.query("users").collect();
     return users;
+  },
+});
+
+export const updateBio = mutation({
+  args: { bio: v.string() },
+  handler: async (ctx, args) => {
+    const user = await getCurrentUserOrCrash(ctx);
+    await ctx.db.patch(user._id, { bio: args.bio });
+  },
+});
+
+export const getCurrentUser = query({
+  args: {},
+  handler: async (ctx) => {
+    return await getCurrentUserOrNull(ctx);
   },
 });
