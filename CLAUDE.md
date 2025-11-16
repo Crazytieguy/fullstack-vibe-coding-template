@@ -45,7 +45,7 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 - `_creationTime` and `_id` are automatically added to all documents.
 - Adding required fields breaks existing data - if early in development, ask the user to clear the database. Otherwise, plan migration.
-- Use `ConvexError` for client-friendly errors, not generic Error
+- Always throw `ConvexError` for user-facing errors; frontend reads `error.data`, not `error.message`
 - Queries have 16MB/10s limits - always use indexes, never full table scans
 - Paginated queries: use `.paginate(paginationOpts)` with `paginationOptsValidator`
 - Scheduled tasks: `ctx.scheduler.runAfter(delay, internal.module.function, args)` or `ctx.scheduler.runAt(timestamp, ...)`

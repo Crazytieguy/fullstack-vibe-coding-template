@@ -2,11 +2,30 @@
   "mcpServers": {
     "playwright": {
       "command": "pnpx",
-      "args": ["@playwright/mcp@latest", "--browser", "chromium", "--isolated", "--no-sandbox"]
+      "args": [
+        "@playwright/mcp@latest",
+        "--browser",
+        "chromium",
+        "--isolated",
+        "--no-sandbox"
+      ]
     },
     "convex": {
       "command": "pnpm",
-      "args": ["convex", "mcp", "start"]
+      "args": [
+        "convex",
+        "mcp",
+        "start"
+      ]
+    },
+    "llms-fetch": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "llms-fetch-mcp"
+      ],
+      "env": {}
     }
   }
 }
