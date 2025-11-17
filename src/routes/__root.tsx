@@ -45,7 +45,7 @@ function RootComponent() {
       publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
       signUpFallbackRedirectUrl="/"
       signInFallbackRedirectUrl="/"
-      signOutForceRedirectUrl="/"
+      afterSignOutUrl="/"
     >
       <ConvexProviderWithClerk client={convex} useAuth={useClerkAuth}>
         <QueryClientProvider client={queryClient}>
