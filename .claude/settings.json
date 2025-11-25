@@ -14,6 +14,7 @@
       "Bash(pnpm run:*)",
       "Bash(pnpm lint)",
       "Bash(pnpm dev)",
+      "Bash(pnpm run setup)",
       "Bash(pnpm test:*)",
       "Bash(pnpm test:e2e)",
       "Bash(pnpx convex run:*)",
